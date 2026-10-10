@@ -1,3 +1,6 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+
+# Płatne/licencjonowane assety (LimeZu Modern Interiors) - nie publikujemy plików źródłowych
+/assets/modern_interiors/
