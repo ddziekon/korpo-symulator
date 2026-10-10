@@ -1,18 +1,53 @@
-[gd_scene load_steps=14 format=3]
+[gd_scene load_steps=17 format=3]
 
 [ext_resource type="Script" path="res://scripts/rooms/room.gd" id="1_room"]
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_player"]
 [ext_resource type="PackedScene" path="res://scenes/props/furniture.tscn" id="3_furniture"]
-[ext_resource type="Texture2D" path="res://assets/kenney/indoors/roguelikeIndoor_transparent.png" id="4_sheet"]
+[ext_resource type="Texture2D" path="res://assets/modern_interiors/interiors/Interiors_free_16x16.png" id="4_sheet"]
+[ext_resource type="Texture2D" path="res://assets/modern_interiors/interiors/Room_Builder_free_16x16.png" id="5_builder"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_indoors"]
-texture = ExtResource("4_sheet")
-separation = Vector2i(1, 1)
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_builder"]
+texture = ExtResource("5_builder")
 texture_region_size = Vector2i(16, 16)
-5:0/0 = 0
+0:11/0 = 0
+1:11/0 = 0
+2:11/0 = 0
+0:12/0 = 0
+1:12/0 = 0
+2:12/0 = 0
+11:13/0 = 0
+12:13/0 = 0
+13:13/0 = 0
+11:14/0 = 0
+12:14/0 = 0
+13:14/0 = 0
+11:7/0 = 0
+12:7/0 = 0
+13:7/0 = 0
+11:8/0 = 0
+12:8/0 = 0
+13:8/0 = 0
+14:11/0 = 0
+15:11/0 = 0
+16:11/0 = 0
+14:12/0 = 0
+15:12/0 = 0
+16:12/0 = 0
 
-[sub_resource type="TileSet" id="TileSet_indoors"]
-sources/0 = SubResource("TileSetAtlasSource_indoors")
+[sub_resource type="TileSet" id="TileSet_builder"]
+sources/0 = SubResource("TileSetAtlasSource_builder")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rug"]
+atlas = ExtResource("4_sheet")
+region = Rect2(114, 244, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_window"]
+atlas = ExtResource("4_sheet")
+region = Rect2(115, 391, 25, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_door"]
+atlas = ExtResource("4_sheet")
+region = Rect2(113, 139, 14, 21)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_top"]
 size = Vector2(352, 32)
@@ -23,47 +58,47 @@ size = Vector2(352, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_side"]
 size = Vector2(16, 192)
 
-[node name="PlayerRoom" type="Node2D" node_paths=PackedStringArray("floor_layer", "camera")]
+[node name="PlayerRoom" type="Node2D" node_paths=PackedStringArray("floor_layer", "wall_layer", "camera")]
 script = ExtResource("1_room")
 floor_layer = NodePath("Floor")
+floor_pattern_origin = Vector2i(11, 7)
+wall_layer = NodePath("WallTiles")
 camera = NodePath("YSort/Player/Camera2D")
 
 [node name="Floor" type="TileMapLayer" parent="."]
-tile_set = SubResource("TileSet_indoors")
+tile_set = SubResource("TileSet_builder")
+
+[node name="WallTiles" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_builder")
 
 [node name="Walls" type="Node2D" parent="."]
-
-[node name="TopFace" type="ColorRect" parent="Walls"]
-offset_top = -28.0
-offset_right = 320.0
-color = Color(0.925, 0.886, 0.804, 1)
-
-[node name="TopBorder" type="ColorRect" parent="Walls"]
-offset_left = -16.0
-offset_top = -32.0
-offset_right = 336.0
-offset_bottom = -28.0
-color = Color(0.706, 0.655, 0.549, 1)
 
 [node name="LeftBorder" type="ColorRect" parent="Walls"]
 offset_left = -16.0
 offset_top = -32.0
 offset_bottom = 208.0
-color = Color(0.706, 0.655, 0.549, 1)
+color = Color(0.23, 0.227, 0.314, 1)
 
 [node name="RightBorder" type="ColorRect" parent="Walls"]
 offset_left = 320.0
 offset_top = -32.0
 offset_right = 336.0
 offset_bottom = 208.0
-color = Color(0.706, 0.655, 0.549, 1)
+color = Color(0.23, 0.227, 0.314, 1)
 
 [node name="BottomBorder" type="ColorRect" parent="Walls"]
 offset_left = -16.0
 offset_top = 192.0
 offset_right = 336.0
 offset_bottom = 208.0
-color = Color(0.706, 0.655, 0.549, 1)
+color = Color(0.23, 0.227, 0.314, 1)
+
+[node name="TopBorder" type="ColorRect" parent="Walls"]
+offset_left = -16.0
+offset_top = -48.0
+offset_right = 336.0
+offset_bottom = -32.0
+color = Color(0.23, 0.227, 0.314, 1)
 
 [node name="WallBody" type="StaticBody2D" parent="Walls"]
 collision_mask = 0
@@ -84,40 +119,78 @@ shape = SubResource("RectangleShape2D_side")
 position = Vector2(328, 96)
 shape = SubResource("RectangleShape2D_side")
 
+[node name="Decor" type="Node2D" parent="."]
+
+[node name="Rug" type="Sprite2D" parent="Decor"]
+position = Vector2(130, 100)
+texture = SubResource("AtlasTexture_rug")
+centered = false
+
+[node name="WindowLeft" type="Sprite2D" parent="Decor"]
+position = Vector2(46, -27)
+texture = SubResource("AtlasTexture_window")
+centered = false
+
+[node name="WindowRight" type="Sprite2D" parent="Decor"]
+position = Vector2(230, -27)
+texture = SubResource("AtlasTexture_window")
+centered = false
+
+[node name="Door" type="Sprite2D" parent="Decor"]
+position = Vector2(143, -21)
+texture = SubResource("AtlasTexture_door")
+centered = false
+
 [node name="YSort" type="Node2D" parent="."]
 y_sort_enabled = true
 
 [node name="Player" parent="YSort" instance=ExtResource("2_player")]
-position = Vector2(160, 130)
+position = Vector2(160, 150)
 
 [node name="Bed" parent="YSort" instance=ExtResource("3_furniture")]
-position = Vector2(32, 36)
+position = Vector2(36, 44)
 sheet = ExtResource("4_sheet")
-origin_cell = Vector2i(12, 7)
-size_cells = Vector2i(2, 1)
-collision_size = Vector2(30, 12)
+region = Rect2i(92, 16, 41, 32)
+collision_size = Vector2(36, 20)
 
 [node name="Desk" parent="YSort" instance=ExtResource("3_furniture")]
-position = Vector2(184, 48)
+position = Vector2(114, 44)
 sheet = ExtResource("4_sheet")
-size_cells = Vector2i(3, 2)
-collision_size = Vector2(46, 20)
+region = Rect2i(80, 884, 48, 22)
+collision_size = Vector2(46, 12)
 
-[node name="Chair" parent="YSort" instance=ExtResource("3_furniture")]
-position = Vector2(184, 68)
+[node name="Stool" parent="YSort" instance=ExtResource("3_furniture")]
+position = Vector2(114, 62)
 sheet = ExtResource("4_sheet")
-origin_cell = Vector2i(1, 3)
-collision_size = Vector2(12, 8)
+region = Rect2i(97, 209, 14, 14)
+collision_size = Vector2(10, 6)
 
-[node name="Dresser" parent="YSort" instance=ExtResource("3_furniture")]
-position = Vector2(256, 32)
+[node name="Bookshelf" parent="YSort" instance=ExtResource("3_furniture")]
+position = Vector2(170, 36)
 sheet = ExtResource("4_sheet")
-origin_cell = Vector2i(0, 12)
-size_cells = Vector2i(2, 1)
+region = Rect2i(160, 1094, 32, 34)
 collision_size = Vector2(30, 12)
 
-[node name="Plant" parent="YSort" instance=ExtResource("3_furniture")]
-position = Vector2(300, 40)
+[node name="Wardrobe" parent="YSort" instance=ExtResource("3_furniture")]
+position = Vector2(214, 42)
 sheet = ExtResource("4_sheet")
-origin_cell = Vector2i(16, 0)
+region = Rect2i(114, 772, 27, 39)
+collision_size = Vector2(24, 14)
+
+[node name="Commode" parent="YSort" instance=ExtResource("3_furniture")]
+position = Vector2(270, 34)
+sheet = ExtResource("4_sheet")
+region = Rect2i(0, 917, 48, 20)
+collision_size = Vector2(46, 12)
+
+[node name="Plant" parent="YSort" instance=ExtResource("3_furniture")]
+position = Vector2(298, 70)
+sheet = ExtResource("4_sheet")
+region = Rect2i(167, 713, 18, 31)
+collision_size = Vector2(10, 6)
+
+[node name="Lamp" parent="YSort" instance=ExtResource("3_furniture")]
+position = Vector2(14, 100)
+sheet = ExtResource("4_sheet")
+region = Rect2i(193, 904, 13, 33)
 collision_size = Vector2(8, 6)

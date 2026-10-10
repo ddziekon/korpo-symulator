@@ -1,27 +1,27 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=9 format=3]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_player"]
 [ext_resource type="Script" path="res://scripts/components/movement_component.gd" id="2_move"]
 [ext_resource type="Script" path="res://scripts/camera/follow_camera.gd" id="3_cam"]
-[ext_resource type="Texture2D" path="res://assets/characters/office_worker.png" id="4_chars"]
+[ext_resource type="Script" path="res://scripts/animation/directional_animator.gd" id="4_anim"]
+[ext_resource type="Texture2D" path="res://assets/modern_interiors/characters/Bob_idle_anim_16x16.png" id="5_idle"]
+[ext_resource type="Texture2D" path="res://assets/modern_interiors/characters/Bob_run_16x16.png" id="6_run"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_feet"]
 size = Vector2(10, 6)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement", "sprite", "interaction_point")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement", "interaction_point")]
 collision_layer = 2
 collision_mask = 1
 motion_mode = 1
 script = ExtResource("1_player")
 movement = NodePath("MovementComponent")
-sprite = NodePath("Sprite2D")
 interaction_point = NodePath("InteractionPoint")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -8)
-texture = ExtResource("4_chars")
-region_enabled = true
-region_rect = Rect2(17, 0, 16, 16)
+position = Vector2(0, -16)
+texture = ExtResource("5_idle")
+hframes = 24
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -3)
@@ -31,9 +31,16 @@ shape = SubResource("RectangleShape2D_feet")
 script = ExtResource("2_move")
 body = NodePath("..")
 
+[node name="DirectionalAnimator" type="Node" parent="." node_paths=PackedStringArray("movement", "sprite")]
+script = ExtResource("4_anim")
+movement = NodePath("../MovementComponent")
+sprite = NodePath("../Sprite2D")
+idle_texture = ExtResource("5_idle")
+run_texture = ExtResource("6_run")
+
 [node name="InteractionPoint" type="Marker2D" parent="."]
-position = Vector2(0, 6)
+position = Vector2(0, 4)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, -8)
+position = Vector2(0, -16)
 script = ExtResource("3_cam")
