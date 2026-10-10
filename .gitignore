@@ -2,5 +2,12 @@
 .godot/
 /android/
 
-# Płatne/licencjonowane assety (LimeZu Modern Interiors) - nie publikujemy plików źródłowych
+# Płatne/licencjonowane assety (LimeZu) - nie publikujemy plików źródłowych
 /assets/modern_interiors/
+/assets/modernexteriors-win/
+/assets/modernuserinterface-win/
+/assets/Modern_Office_Revamped_v1.2/
+/assets/moderninteriors-win.zip
+/assets/Character Generator 2.0 Setup.exe
+/assets/*.zip
+/assets/*.exe
