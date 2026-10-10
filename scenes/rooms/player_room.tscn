@@ -156,8 +156,8 @@ collision_size = Vector2(36, 20)
 [node name="Desk" parent="YSort" instance=ExtResource("3_furniture")]
 position = Vector2(114, 44)
 sheet = ExtResource("4_sheet")
-region = Rect2i(80, 884, 48, 22)
-collision_size = Vector2(46, 12)
+region = Rect2i(80, 884, 32, 22)
+collision_size = Vector2(30, 12)
 
 [node name="Stool" parent="YSort" instance=ExtResource("3_furniture")]
 position = Vector2(114, 62)
