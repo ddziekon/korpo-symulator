@@ -36,7 +36,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"sleep",
-"speed": 1.25
+"speed": 0.5
 }, {
 "frames": [{
 "duration": 1.0,
@@ -50,12 +50,12 @@ animations = [{
 }],
 "loop": false,
 "name": &"wake_up",
-"speed": 5.0
+"speed": 1.7
 }]
 
 [sub_resource type="Animation" id="Animation_intro"]
 resource_name = "intro"
-length = 9.0
+length = 27.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -63,7 +63,7 @@ tracks/0/path = NodePath("SceneFader:modulate:a")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 8, 8.8),
+"times": PackedFloat32Array(0, 3, 24, 26.4),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [1.0, 0.0, 0.0, 1.0]
@@ -75,7 +75,7 @@ tracks/1/path = NodePath("Flash:modulate:a")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 6.2, 6.5, 7.1),
+"times": PackedFloat32Array(0, 18.6, 19.5, 21.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [0.0, 0.0, 1.0, 0.0]
@@ -87,7 +87,7 @@ tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.5, 4.5, 4.8, 6.5),
+"times": PackedFloat32Array(1.5, 13.5, 14.4, 19.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "values": [{
 "args": [],
@@ -143,6 +143,9 @@ particle_scene = ExtResource("3_particle")
 small_texture = ExtResource("7_zs")
 big_texture = ExtResource("8_zb")
 timer = NodePath("Timer")
+interval = 2.7
+lifetime = 5.4
+drift = Vector2(14, -30)
 
 [node name="Timer" type="Timer" parent="Stage/ZzzSpawner"]
 
