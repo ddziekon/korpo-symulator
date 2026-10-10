@@ -5,8 +5,10 @@ extends CharacterBody2D
 @export var movement: MovementComponent
 @export var sprite: Sprite2D
 @export var interaction_point: Marker2D
-## Odległość punktu interakcji od środka postaci (w pikselach).
+## Odległość punktu interakcji od środka ciała postaci (w pikselach).
 @export_range(0.0, 64.0, 1.0) var interaction_distance: float = 12.0
+## Środek ciała względem pozycji węzła (pozycja węzła to stopy, potrzebne do Y-sortu).
+@export var body_center: Vector2 = Vector2(0.0, -6.0)
 
 
 func _ready() -> void:
@@ -17,7 +19,7 @@ func _ready() -> void:
 
 func _on_direction_changed(direction: Vector2) -> void:
 	if interaction_point != null:
-		interaction_point.position = direction * interaction_distance
+		interaction_point.position = body_center + direction * interaction_distance
 	# Odbijamy sprite tylko przy ruchu poziomym, żeby nie migał przy ruchu góra/dół.
 	if sprite != null and not is_zero_approx(direction.x):
 		sprite.flip_h = direction.x < 0.0

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/props/furniture.gd" id="1_furniture"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_default"]
+
+[node name="Furniture" type="StaticBody2D" node_paths=PackedStringArray("collision_shape")]
+collision_mask = 0
+script = ExtResource("1_furniture")
+collision_shape = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_default")

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_player"]
 [ext_resource type="Script" path="res://scripts/components/movement_component.gd" id="2_move"]
 [ext_resource type="Script" path="res://scripts/camera/follow_camera.gd" id="3_cam"]
-[ext_resource type="Texture2D" path="res://icon.svg" id="4_icon"]
+[ext_resource type="Texture2D" path="res://assets/kenney/characters/roguelikeChar_transparent.png" id="4_chars"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_feet"]
 size = Vector2(10, 6)
@@ -18,11 +18,13 @@ sprite = NodePath("Sprite2D")
 interaction_point = NodePath("InteractionPoint")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.125, 0.125)
-texture = ExtResource("4_icon")
+position = Vector2(0, -8)
+texture = ExtResource("4_chars")
+region_enabled = true
+region_rect = Rect2(0, 119, 16, 16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 5)
+position = Vector2(0, -3)
 shape = SubResource("RectangleShape2D_feet")
 
 [node name="MovementComponent" type="Node" parent="." node_paths=PackedStringArray("body")]
@@ -30,7 +32,8 @@ script = ExtResource("2_move")
 body = NodePath("..")
 
 [node name="InteractionPoint" type="Marker2D" parent="."]
-position = Vector2(0, 12)
+position = Vector2(0, 6)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -8)
 script = ExtResource("3_cam")

@@ -16,9 +16,14 @@ func _ready() -> void:
 		apply_world_bounds(world_bounds)
 
 
-## Ustawia granice kamery, np. po wczytaniu nowego poziomu.
+## Ustawia granice kamery. Jeśli świat jest mniejszy niż ekran, kamera zostaje wyśrodkowana na nim.
+@warning_ignore("integer_division")
 func apply_world_bounds(bounds: Rect2i) -> void:
-	limit_left = bounds.position.x
-	limit_top = bounds.position.y
-	limit_right = bounds.end.x
-	limit_bottom = bounds.end.y
+	var view_size: Vector2i = Vector2i(get_viewport_rect().size)
+	var extra_x: int = maxi(view_size.x - bounds.size.x, 0)
+	var extra_y: int = maxi(view_size.y - bounds.size.y, 0)
+	limit_left = bounds.position.x - extra_x / 2
+	limit_top = bounds.position.y - extra_y / 2
+	limit_right = bounds.end.x + extra_x - extra_x / 2
+	limit_bottom = bounds.end.y + extra_y - extra_y / 2
+	reset_smoothing()
