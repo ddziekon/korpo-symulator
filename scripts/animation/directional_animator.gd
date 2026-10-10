@@ -16,6 +16,8 @@ const DIRECTION_DOWN: int = 3
 @export_range(1, 24, 1) var frames_per_direction: int = 6
 @export_range(1.0, 30.0, 0.5) var idle_fps: float = 5.0
 @export_range(1.0, 30.0, 0.5) var run_fps: float = 10.0
+## Podskok postaci w pikselach podczas biegu. Przydatny, gdy arkusz biegu ma tylko 1 klatkę na kierunek (0 = wyłączony).
+@export_range(0, 4, 1) var run_bob_pixels: int = 0
 
 var _direction_index: int = DIRECTION_DOWN
 var _is_running: bool = false
@@ -62,8 +64,10 @@ func _apply_texture() -> void:
 
 func _update_frame() -> void:
 	var fps: float = run_fps if _is_running else idle_fps
-	var step: int = int(_elapsed * fps) % frames_per_direction
-	sprite.frame = _direction_index * frames_per_direction + step
+	var tick: int = int(_elapsed * fps)
+	sprite.frame = _direction_index * frames_per_direction + tick % frames_per_direction
+	var bob: bool = _is_running and tick % 2 == 1
+	sprite.offset.y = -float(run_bob_pixels) if bob else 0.0
 
 
 func _index_for_direction(direction: Vector2) -> int:

@@ -4,8 +4,8 @@
 [ext_resource type="Script" path="res://scripts/components/movement_component.gd" id="2_move"]
 [ext_resource type="Script" path="res://scripts/camera/follow_camera.gd" id="3_cam"]
 [ext_resource type="Script" path="res://scripts/animation/directional_animator.gd" id="4_anim"]
-[ext_resource type="Texture2D" path="res://assets/modern_interiors/characters/Bob_idle_anim_16x16.png" id="5_idle"]
-[ext_resource type="Texture2D" path="res://assets/modern_interiors/characters/Bob_run_16x16.png" id="6_run"]
+[ext_resource type="Texture2D" path="res://assets/characters/boy/boy_idle_sheet.png" id="5_idle"]
+[ext_resource type="Texture2D" path="res://assets/characters/boy/boy_idle_sheet.png" id="6_run"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_feet"]
 size = Vector2(10, 6)
@@ -21,7 +21,7 @@ interaction_point = NodePath("InteractionPoint")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -16)
 texture = ExtResource("5_idle")
-hframes = 24
+hframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -3)
@@ -37,6 +37,8 @@ movement = NodePath("../MovementComponent")
 sprite = NodePath("../Sprite2D")
 idle_texture = ExtResource("5_idle")
 run_texture = ExtResource("6_run")
+frames_per_direction = 1
+run_bob_pixels = 1
 
 [node name="InteractionPoint" type="Marker2D" parent="."]
 position = Vector2(0, 4)
