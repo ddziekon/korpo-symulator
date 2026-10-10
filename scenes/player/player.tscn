@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_player"]
 [ext_resource type="Script" path="res://scripts/components/movement_component.gd" id="2_move"]
 [ext_resource type="Script" path="res://scripts/camera/follow_camera.gd" id="3_cam"]
-[ext_resource type="Texture2D" path="res://assets/kenney/urban/urban_tilemap.png" id="4_chars"]
+[ext_resource type="Texture2D" path="res://assets/characters/office_worker.png" id="4_chars"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_feet"]
 size = Vector2(10, 6)
@@ -21,7 +21,7 @@ interaction_point = NodePath("InteractionPoint")
 position = Vector2(0, -8)
 texture = ExtResource("4_chars")
 region_enabled = true
-region_rect = Rect2(408, 0, 16, 16)
+region_rect = Rect2(17, 0, 16, 16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -3)

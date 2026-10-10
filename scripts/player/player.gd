@@ -6,15 +6,15 @@ extends CharacterBody2D
 const CELL_SIZE: int = 16
 const CELL_STEP: int = 17
 ## Kolumny arkusza dla kierunków: lewo, dół (przodem), góra (tyłem), prawo.
-const COLUMN_LEFT: int = 23
-const COLUMN_DOWN: int = 24
-const COLUMN_UP: int = 25
-const COLUMN_RIGHT: int = 26
+const COLUMN_LEFT: int = 0
+const COLUMN_DOWN: int = 1
+const COLUMN_UP: int = 2
+const COLUMN_RIGHT: int = 3
 
 @export var movement: MovementComponent
 @export var sprite: Sprite2D
 @export var interaction_point: Marker2D
-## Wiersz postaci w arkuszu (0 = chłopak w zielonej koszulce, stojący).
+## Wiersz arkusza (0 = stoi, 1 i 2 = klatki kroku, na razie nieużywane).
 @export var sprite_row: int = 0
 ## Odległość punktu interakcji od środka ciała postaci (w pikselach).
 @export_range(0.0, 64.0, 1.0) var interaction_distance: float = 12.0
