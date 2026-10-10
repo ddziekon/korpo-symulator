@@ -8,6 +8,7 @@ Wszystkie paczki LimeZu (https://limezu.itch.io) są w `.gitignore` i nie trafia
 |---|---|---|
 | `characters/boy/` | Postać gracza (Pixellab), arkusze `boy_idle_sheet.png` i `boy_walk_sheet.png` | Warunki planu Pixellab (do sprawdzenia przed wydaniem) |
 | `modern_interiors/` | Darmowa wersja Modern Interiors (pokój gracza) | Tylko niekomercyjnie |
+| `fonts/PixelifySans.ttf` | Czcionka Pixelify Sans (menu i interfejs), `fonts/OFL.txt` | SIL Open Font License 1.1 (wolno używać komercyjnie) |
 
 ## Zakupione paczki LimeZu (16×16, do dalszej pracy)
 

@@ -11,8 +11,9 @@ config_version=5
 [application]
 
 config/name="Korpo_symulator"
-run/main_scene="res://scenes/intro/intro.tscn"
+run/main_scene="res://scenes/menu/main_menu.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
+config/version="0.1.0"
 config/icon="res://icon.svg"
 
 [display]
