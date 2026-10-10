@@ -1,0 +1,174 @@
+[gd_scene load_steps=19 format=3]
+
+[ext_resource type="Script" path="res://scripts/intro/intro_cutscene.gd" id="1_intro"]
+[ext_resource type="Script" path="res://scripts/intro/zzz_spawner.gd" id="2_spawner"]
+[ext_resource type="PackedScene" path="res://scenes/intro/zzz_particle.tscn" id="3_particle"]
+[ext_resource type="PackedScene" path="res://scenes/rooms/player_room.tscn" id="4_room"]
+[ext_resource type="Texture2D" path="res://assets/characters/boy/boy_sleep.png" id="5_sleep"]
+[ext_resource type="Texture2D" path="res://assets/characters/hero/hero_idle.png" id="6_hero"]
+[ext_resource type="Texture2D" path="res://assets/intro/zzz_small.png" id="7_zs"]
+[ext_resource type="Texture2D" path="res://assets/intro/zzz_big.png" id="8_zb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f0"]
+atlas = ExtResource("5_sleep")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1"]
+atlas = ExtResource("5_sleep")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f2"]
+atlas = ExtResource("5_sleep")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f3"]
+atlas = ExtResource("5_sleep")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_boy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1")
+}],
+"loop": true,
+"name": &"sleep",
+"speed": 1.25
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f3")
+}],
+"loop": false,
+"name": &"wake_up",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_intro"]
+resource_name = "intro"
+length = 9.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SceneFader:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 8, 8.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [1.0, 0.0, 0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Flash:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 6.2, 6.5, 7.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0, 0.0]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5, 4.5, 4.8, 6.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"start_zzz"
+}, {
+"args": [],
+"method": &"stop_zzz"
+}, {
+"args": [],
+"method": &"wake_up"
+}, {
+"args": [],
+"method": &"swap_to_hero"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_intro"]
+_data = {
+&"intro": SubResource("Animation_intro")
+}
+
+[node name="Intro" type="Node" node_paths=PackedStringArray("sequencer", "sleeping_boy", "game_boy", "zzz_spawner")]
+script = ExtResource("1_intro")
+next_scene = ExtResource("4_room")
+sequencer = NodePath("Sequencer")
+sleeping_boy = NodePath("Stage/SleepingBoy")
+game_boy = NodePath("Stage/GameBoy")
+zzz_spawner = NodePath("Stage/ZzzSpawner")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 480.0
+offset_bottom = 270.0
+color = Color(0, 0, 0, 1)
+
+[node name="Stage" type="Node2D" parent="."]
+position = Vector2(240, 135)
+scale = Vector2(4, 4)
+
+[node name="SleepingBoy" type="AnimatedSprite2D" parent="Stage"]
+sprite_frames = SubResource("SpriteFrames_boy")
+animation = &"sleep"
+
+[node name="GameBoy" type="Sprite2D" parent="Stage"]
+position = Vector2(0, -1)
+texture = ExtResource("6_hero")
+hframes = 24
+frame = 18
+
+[node name="ZzzSpawner" type="Marker2D" parent="Stage" node_paths=PackedStringArray("timer")]
+position = Vector2(10, -6)
+script = ExtResource("2_spawner")
+particle_scene = ExtResource("3_particle")
+small_texture = ExtResource("7_zs")
+big_texture = ExtResource("8_zb")
+timer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="Stage/ZzzSpawner"]
+
+[node name="Flash" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+offset_right = 480.0
+offset_bottom = 270.0
+mouse_filter = 2
+color = Color(1, 1, 1, 1)
+
+[node name="SkipHint" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0.55)
+offset_left = 8.0
+offset_top = 252.0
+offset_right = 472.0
+offset_bottom = 266.0
+theme_override_font_sizes/font_size = 8
+text = "Naciśnij dowolny klawisz, aby pominąć"
+
+[node name="SceneFader" type="ColorRect" parent="."]
+offset_right = 480.0
+offset_bottom = 270.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Sequencer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_intro")
+}
