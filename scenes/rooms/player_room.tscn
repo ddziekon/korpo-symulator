@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=3]
+[gd_scene load_steps=18 format=3]
 
 [ext_resource type="Script" path="res://scripts/rooms/room.gd" id="1_room"]
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_player"]
 [ext_resource type="PackedScene" path="res://scenes/props/furniture.tscn" id="3_furniture"]
 [ext_resource type="Texture2D" path="res://assets/modern_interiors/interiors/Interiors_free_16x16.png" id="4_sheet"]
 [ext_resource type="Texture2D" path="res://assets/modern_interiors/interiors/Room_Builder_free_16x16.png" id="5_builder"]
+[ext_resource type="PackedScene" path="res://scenes/hud/hud.tscn" id="6_hud"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_builder"]
 texture = ExtResource("5_builder")
@@ -194,3 +195,5 @@ position = Vector2(14, 100)
 sheet = ExtResource("4_sheet")
 region = Rect2i(193, 904, 13, 33)
 collision_size = Vector2(8, 6)
+
+[node name="Hud" parent="." instance=ExtResource("6_hud")]

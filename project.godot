@@ -16,6 +16,10 @@ config/features=PackedStringArray("4.7", "Forward Plus")
 config/version="0.1.0"
 config/icon="res://icon.svg"
 
+[autoload]
+
+PlayerStats="*res://scenes/autoload/player_stats.tscn"
+
 [display]
 
 window/size/viewport_width=480

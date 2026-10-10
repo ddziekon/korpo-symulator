@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/autoload/player_stats.gd" id="1_stats"]
+[ext_resource type="Script" path="res://scripts/stats/stat_component.gd" id="2_stat"]
+
+[node name="PlayerStats" type="Node" node_paths=PackedStringArray("health", "energy")]
+script = ExtResource("1_stats")
+health = NodePath("Health")
+energy = NodePath("Energy")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("2_stat")
+max_value = 100
+
+[node name="Energy" type="Node" parent="."]
+script = ExtResource("2_stat")
+max_value = 100

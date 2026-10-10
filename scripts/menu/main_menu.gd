@@ -43,6 +43,8 @@ func _on_new_game_pressed() -> void:
 	_is_transitioning = true
 	new_game_button.disabled = true
 	quit_button.disabled = true
+	# Nowa gra zawsze startuje z pełnymi statystykami i zerem pieniędzy.
+	PlayerStats.reset()
 	new_game_started.emit()
 	var fade: Tween = _fade_to(1.0)
 	await fade.finished
